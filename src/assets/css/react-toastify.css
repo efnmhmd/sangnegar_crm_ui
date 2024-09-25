@@ -1,0 +1,19 @@
+@import 'react-toastify/dist/ReactToastify.min.css';
+
+.Toastify__toast-container {
+	/* --toastify-toast-top: 2.53rem; */
+	/* --toastify-toast-right: 2.94rem; */
+	@apply left-1/2 top-5 z-[99999999] w-fit -translate-x-1/2 space-y-2 md:left-5 md:translate-x-0;
+}
+
+.Toastify__toast {
+	@apply flex h-12 min-h-0 w-[18rem] items-center rounded-[0.75rem] px-5 py-3 text-xs;
+}
+
+.Toastify__toast-body {
+	@apply m-0 flex select-none flex-row-reverse items-center gap-x-4 p-0 text-end;
+}
+
+.Toastify__toast-icon {
+	@apply m-0 p-0;
+}

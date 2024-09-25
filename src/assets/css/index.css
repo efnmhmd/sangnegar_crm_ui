@@ -1,0 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './global.css';
+@import './scrollbar.css';
+
+@import './Roboto.css';
+@import './Vazir.css';
+
+@import './react-toastify.css';
+
