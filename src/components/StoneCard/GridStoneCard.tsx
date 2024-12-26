@@ -1,5 +1,4 @@
 import {
-	CircularProgressbar,
 	CircularProgressbarWithChildren,
 	buildStyles,
 } from 'react-circular-progressbar';
@@ -7,6 +6,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { twMerge } from 'tailwind-merge';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { StoneCardType } from '@/types/StoneCardType';
 import { StoneType } from '@/types/StoneType';
 import diagramImage from '@assets/images/diagram.svg';
 import graphImage from '@assets/images/graph.svg';
@@ -14,13 +14,13 @@ import resizeImage from '@assets/images/resize.svg';
 import scanImage from '@assets/images/scan.svg';
 import stoneImage from '@assets/images/stone.png';
 
-type StoneCardPropsType = {
-	card: StoneType;
-};
-
-function StoneCard({ card }: StoneCardPropsType) {
+function GridStoneCard({ card }: StoneCardType) {
 	return (
-		<div className="relative overflow-hidden rounded-3xl bg-black/30 p-2">
+		<div
+			className={twMerge(
+				'relative overflow-hidden rounded-3xl bg-black/30 p-2',
+			)}
+		>
 			<div
 				className={twMerge(
 					'absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/60',
@@ -130,4 +130,4 @@ function StoneCard({ card }: StoneCardPropsType) {
 	);
 }
 
-export default StoneCard;
+export default GridStoneCard;

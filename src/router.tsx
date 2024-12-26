@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthLayout from './layout/AuthLayout';
+import Cart from './pages/Cart';
+import Customer from './pages/Customer';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -44,6 +46,14 @@ export const authenticated: AuthenticatedRouteType = [
 			{
 				path: 'store',
 				element: <Home />,
+			},
+			{
+				path: 'cart',
+				element: <Cart />,
+			},
+			{
+				path: 'customer',
+				element: <Customer />,
 			},
 		],
 	},

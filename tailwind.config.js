@@ -10,9 +10,13 @@ export default {
 				'dark-gray': '#D9D9D94D',
 				'dark-orange': '#A96322',
 				'dark-red': '#A92222',
+				'light-red': '#E14B4B',
 			},
 			fontFamily: {
 				vazir: 'vazir',
+			},
+			boxShadow: {
+				inside: 'inset 0px 0px 26px -3px rgba(83, 172, 255, 0.3)',
 			},
 		},
 	},
