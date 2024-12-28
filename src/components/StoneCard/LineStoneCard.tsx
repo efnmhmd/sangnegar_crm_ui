@@ -6,7 +6,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { twMerge } from 'tailwind-merge';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { StoneCardType } from '@/types/StoneCardType';
+import { StoneCardType } from '@/types/StoneCard.type';
 import diagramImage from '@assets/images/diagram.svg';
 import graphImage from '@assets/images/graph.svg';
 import resizeImage from '@assets/images/resize.svg';

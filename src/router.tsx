@@ -6,6 +6,8 @@ import Customer from './pages/Customer';
 import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Order from './pages/Orders';
+import Profile from './pages/Profile';
 import TwoFactorAuth from './pages/TwoFactorAuth';
 import { AuthenticatedRouteType, GuestRouteType } from './types/Route.type';
 
@@ -52,8 +54,16 @@ export const authenticated: AuthenticatedRouteType = [
 				element: <Cart />,
 			},
 			{
-				path: 'customer',
+				path: 'customers',
 				element: <Customer />,
+			},
+			{
+				path: 'orders',
+				element: <Order />,
+			},
+			{
+				path: 'profile',
+				element: <Profile />,
 			},
 		],
 	},

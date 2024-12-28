@@ -3,7 +3,7 @@ import userImage from '@assets/images/user.svg';
 
 function Header() {
 	return (
-		<div className="flex items-center justify-between py-4">
+		<div className="flex h-24 items-center justify-between py-4">
 			<div className="flex flex-1 items-center gap-4">
 				<div className="flex size-11 items-center justify-center rounded-[17px] border-2 border-primary">
 					<img src={userImage} alt="user" />

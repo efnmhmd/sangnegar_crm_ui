@@ -1,4 +1,4 @@
-import { StoneType } from "@/types/StoneType";
+import { StoneType } from "@/types/Stone.type";
 
 export const STONE_CARDS_DATA: StoneType[] = [
 	{
