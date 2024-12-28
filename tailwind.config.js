@@ -11,9 +11,12 @@ export default {
 				'dark-orange': '#A96322',
 				'dark-red': '#A92222',
 				'light-red': '#E14B4B',
+				'light-orange': '#FF9F63',
+				cerulina: '#32DACC',
+				'cherry-red': '#DA3232',
 			},
 			fontFamily: {
-				vazir: 'vazir',
+				vazir: ['vazir', 'Roboto'],
 			},
 			boxShadow: {
 				inside: 'inset 0px 0px 26px -3px rgba(83, 172, 255, 0.3)',
