@@ -7,3 +7,12 @@
 	background-color: #537895;
 	background-image: linear-gradient(315deg, #537895 0%, #09203f 55%);
 }
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
