@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@api': resolve(__dirname, './src/api'),
+      '@store': resolve(__dirname, './src/store'),
+      '@hooks': resolve(__dirname, './src/hooks'),
       '@constant': resolve(__dirname, './src/constant'),
       '@components': resolve(__dirname, './src/components'),
       '@helpers': resolve(__dirname, './src/helpers'),

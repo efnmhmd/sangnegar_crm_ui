@@ -1,7 +1,10 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
+import useAuthStore from '@store/useAuthStore';
 import userImage from '@assets/images/user.svg';
 
 function Header() {
+	const { tokenExpired } = useAuthStore();
+
 	return (
 		<div className="flex h-24 items-center justify-between py-4">
 			<div className="flex flex-1 items-center gap-4">
@@ -48,14 +51,17 @@ function Header() {
 					<div className="absolute -left-1 -top-1 size-4 rounded-full bg-red-600" />
 				</div>
 
-				<div className="flex size-14 items-center justify-center rounded-[17px] bg-black/30">
+				<div className="flex size-14 cursor-pointer items-center justify-center rounded-[17px] bg-black/30">
 					<Icon
 						icon="iconamoon:shopping-bag-thin"
 						className="size-10"
 					/>
 				</div>
 
-				<div className="flex size-14 items-center justify-center rounded-[17px] bg-black/30">
+				<div
+					onClick={tokenExpired}
+					className="flex size-14 cursor-pointer items-center justify-center rounded-[17px] bg-black/30"
+				>
 					<Icon icon="quill:off" className="size-9" />
 				</div>
 			</div>

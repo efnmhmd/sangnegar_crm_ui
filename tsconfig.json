@@ -27,6 +27,7 @@
 		"paths": {
 			"@store/*": ["./src/store/*"],
 			"@api/*": ["./src/api/*"],
+			"@hooks/*": ["./src/hooks/*"],
 			"@locate/*": ["./src/locate/*"],
 			"@constant/*": ["./src/constant/*"],
 			"@components/*": ["./src/components/*"],

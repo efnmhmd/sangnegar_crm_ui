@@ -39,7 +39,7 @@ export default function AuthLayout() {
 		>
 			<Container>
 				<div
-					className="relative h-[800px] w-[1100px] bg-contain bg-center bg-no-repeat"
+					className="relative mx-auto h-[800px] w-[1100px] bg-contain bg-center bg-no-repeat"
 					style={{ backgroundImage: `url(${layoutImage})` }}
 				>
 					<div
