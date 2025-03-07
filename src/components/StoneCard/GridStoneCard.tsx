@@ -79,7 +79,7 @@ function GridStoneCard({ card }: StoneCardType) {
 				</div>
 			</div>
 
-			<div>
+			<div className="mx-auto h-[11rem] w-[13.6875rem]">
 				<img
 					src={card.image}
 					className="h-full w-full object-contain"

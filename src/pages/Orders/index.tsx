@@ -118,7 +118,7 @@ const ordersColumns = createColumnHelper<Order>();
 const paymentsColumns = createColumnHelper<Payment>();
 
 function Order() {
-	const [openOrderDetail, setOpenOrderDetail] = useState(true);
+	const [openOrderDetail, setOpenOrderDetail] = useState(false);
 
 	const CustomerColumnsDef = useMemo(
 		() => [
@@ -267,7 +267,7 @@ function Order() {
 				isOpen={openOrderDetail}
 				setIsOpen={setOpenOrderDetail}
 			>
-				<div className="border-cherry-red bg-cherry-red/40 mb-4 rounded-[11px] border p-1.5 text-xs font-medium">
+				<div className="mb-4 rounded-[11px] border border-cherry-red bg-cherry-red/40 p-1.5 text-xs font-medium">
 					به علت لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
 					چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
 					روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط

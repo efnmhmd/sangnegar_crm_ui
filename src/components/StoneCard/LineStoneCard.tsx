@@ -44,10 +44,10 @@ function LineStoneCard({ card }: StoneCardType) {
 			</div>
 
 			<div className="flex w-full items-center justify-between">
-				<div className="-mt-5">
+				<div className="mx-auto flex h-[11rem] w-[13.6875rem] items-center justify-center overflow-hidden rounded-md p-4">
 					<img
 						src={card.image}
-						className="h-full w-full object-contain"
+						className="h-full w-full rounded-lg object-fill"
 						alt="stone"
 						onError={({ currentTarget }) => {
 							currentTarget.src = stoneImage;
