@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { Fragment } from 'react/jsx-runtime';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { twMerge } from 'tailwind-merge';
-import Header from '@components/Header';
 import GridStoneCard from '@components/StoneCard/GridStoneCard';
 import LineStoneCard from '@components/StoneCard/LineStoneCard';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import useCoopQuery from '@hooks/query/useCoopsQuery';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { STONE_CARDS_DATA } from './DUMMY_STONE_DATA';
 
 export default function Home() {
 	const [showFilterSection, setShowFilterSection] = useState<boolean>(true);
 
 	const [gridList, setGridList] = useState<boolean>(true);
+
+	const coopQuery = useCoopQuery();
 
 	return (
 		<div className="flex items-start justify-between gap-2">
@@ -331,7 +332,22 @@ export default function Home() {
 					</div>
 				</div>
 				{/* card */}
-				{STONE_CARDS_DATA.map((card, i) =>
+
+				{coopQuery.isLoading &&
+					gridList &&
+					Array.from({ length: 8 }).map((_, index) => (
+						<Skeleton key={index} className="h-[10rem] w-full" />
+					))}
+
+				{coopQuery.isLoading && !gridList && (
+					<Skeleton
+						count={3}
+						containerClassName="col-span-full"
+						className="col-span-3 h-[10rem]"
+					/>
+				)}
+
+				{coopQuery.data?.data.map((card, i) =>
 					gridList ? (
 						<GridStoneCard card={card} key={i} />
 					) : (

@@ -3,6 +3,7 @@ import {
 	buildStyles,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import Skeleton from 'react-loading-skeleton';
 import { twMerge } from 'tailwind-merge';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -24,7 +25,8 @@ function GridStoneCard({ card }: StoneCardType) {
 			<div
 				className={twMerge(
 					'absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/60',
-					card.status === 'reserved' || card.status === 'non-existent'
+					card.info.status === 'reserved' ||
+						card.info.status === 'non-existent'
 						? 'z-10 opacity-100'
 						: 'pointer-events-none -z-10 opacity-0',
 				)}
@@ -32,33 +34,37 @@ function GridStoneCard({ card }: StoneCardType) {
 				<div
 					className={twMerge(
 						'rounded-xl border-2 px-4 py-2 text-xl font-semibold tracking-wider',
-						card.status === 'reserved' &&
+						card.info.status === 'reserved' &&
 							'border-dark-orange bg-dark-orange/30',
-						card.status === 'non-existent' &&
+						card.info.status === 'non-existent' &&
 							'border-dark-red bg-dark-red/40',
 					)}
 				>
-					{card.status === 'reserved' && 'رزور شده'}
-					{card.status === 'non-existent' && 'ناموجود'}
+					{card.info.status === 'reserved' && 'رزور شده'}
+					{card.info.status === 'non-existent' && 'ناموجود'}
 				</div>
 			</div>
 
 			<div className="flex items-center gap-2">
 				<Icon icon="mynaui:mountain" className="size-8" />
-				<span>{card.mine_name}</span>
+				<span>{card.name}</span>
 				<div className="ms-auto flex items-center justify-center">
 					<CircularProgressbarWithChildren
-						value={(card.amount / card.total) * 100}
+						value={(card.info.amount / card.info.total) * 100}
 						className="w-10"
 						text={String(
-							new Number(card.amount).toLocaleString('fa-ir'),
+							new Number(card.info.amount).toLocaleString(
+								'fa-ir',
+							),
 						)}
 						strokeWidth={5}
 						styles={buildStyles({
 							strokeLinecap: 'butt',
 							textSize: '40px',
-							pathColor: card.amount > 0 ? '#80FF25' : '#A92222',
-							textColor: card.amount > 0 ? '#80FF25' : '#A92222',
+							pathColor:
+								card.info.amount > 0 ? '#80FF25' : '#A92222',
+							textColor:
+								card.info.amount > 0 ? '#80FF25' : '#A92222',
 						})}
 					>
 						<RadialSeparators
@@ -75,9 +81,12 @@ function GridStoneCard({ card }: StoneCardType) {
 
 			<div>
 				<img
-					src={stoneImage}
+					src={card.image}
 					className="h-full w-full object-contain"
 					alt="stone"
+					onError={({ currentTarget }) => {
+						currentTarget.src = stoneImage;
+					}}
 				/>
 			</div>
 
@@ -90,7 +99,7 @@ function GridStoneCard({ card }: StoneCardType) {
 						alt=""
 						className="size-5 opacity-50"
 					/>
-					<span className="text-sm">{card.type}</span>
+					<span className="text-sm">{card.info.type}</span>
 				</div>
 				<div className="flex items-center justify-end gap-4 px-2 py-2">
 					<span className="text-sm">LM.4L:210</span>

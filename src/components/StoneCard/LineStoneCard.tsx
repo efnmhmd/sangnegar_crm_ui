@@ -23,7 +23,8 @@ function LineStoneCard({ card }: StoneCardType) {
 			<div
 				className={twMerge(
 					'absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/60',
-					card.status === 'reserved' || card.status === 'non-existent'
+					card.info.status === 'reserved' ||
+						card.info.status === 'non-existent'
 						? 'z-10 opacity-100'
 						: 'pointer-events-none -z-10 opacity-0',
 				)}
@@ -31,23 +32,26 @@ function LineStoneCard({ card }: StoneCardType) {
 				<div
 					className={twMerge(
 						'rounded-xl border-2 px-4 py-2 text-xl font-semibold tracking-wider',
-						card.status === 'reserved' &&
+						card.info.status === 'reserved' &&
 							'border-dark-orange bg-dark-orange/30',
-						card.status === 'non-existent' &&
+						card.info.status === 'non-existent' &&
 							'border-dark-red bg-dark-red/40',
 					)}
 				>
-					{card.status === 'reserved' && 'رزور شده'}
-					{card.status === 'non-existent' && 'ناموجود'}
+					{card.info.status === 'reserved' && 'رزور شده'}
+					{card.info.status === 'non-existent' && 'ناموجود'}
 				</div>
 			</div>
 
 			<div className="flex w-full items-center justify-between">
 				<div className="-mt-5">
 					<img
-						src={stoneImage}
+						src={card.image}
 						className="h-full w-full object-contain"
 						alt="stone"
+						onError={({ currentTarget }) => {
+							currentTarget.src = stoneImage;
+						}}
 					/>
 				</div>
 
@@ -55,7 +59,7 @@ function LineStoneCard({ card }: StoneCardType) {
 					<div className="flex items-end gap-3">
 						<Icon icon="mynaui:mountain" className="mb-1 size-7" />
 						<span className="text-sm font-light leading-[21.4px]">
-							{card.mine_name}
+							{card.name}
 						</span>
 					</div>
 					<h2 className="py-4 text-xl font-medium">{card.name}</h2>
@@ -67,7 +71,9 @@ function LineStoneCard({ card }: StoneCardType) {
 									alt=""
 									className="size-6 opacity-50"
 								/>
-								<span className="text-lg">{card.type}</span>
+								<span className="text-lg">
+									{card.info.type}
+								</span>
 
 								<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
 								<div className="absolute left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
@@ -119,17 +125,17 @@ function LineStoneCard({ card }: StoneCardType) {
 
 			<div className="absolute left-4 top-4 ms-auto flex items-center justify-center">
 				<CircularProgressbarWithChildren
-					value={(card.amount / card.total) * 100}
+					value={(card.info.amount / card.info.total) * 100}
 					className="w-10"
 					text={String(
-						new Number(card.amount).toLocaleString('fa-ir'),
+						new Number(card.info.amount).toLocaleString('fa-ir'),
 					)}
 					strokeWidth={5}
 					styles={buildStyles({
 						// strokeLinecap: 'round',
 						textSize: '40px',
-						pathColor: card.amount > 0 ? '#80FF25' : '#A92222',
-						textColor: card.amount > 0 ? '#80FF25' : '#A92222',
+						pathColor: card.info.amount > 0 ? '#80FF25' : '#A92222',
+						textColor: card.info.amount > 0 ? '#80FF25' : '#A92222',
 					})}
 				>
 					<RadialSeparators

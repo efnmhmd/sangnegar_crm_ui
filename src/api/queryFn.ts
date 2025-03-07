@@ -7,12 +7,12 @@ type OptionsType = {
 
 const queryFn =
 	(options: OptionsType = {}) =>
-	(ctx: QueryFunctionContext) => {
-		return axios.request({
-			method: 'GET',
-			url: `/${ctx.queryKey.join('/')}`,
-			...options,
-		});
-	};
+		(ctx: QueryFunctionContext) => {
+			return axios.request({
+				method: 'GET',
+				url: `/${ctx.queryKey.join('/')}` + '/',
+				...options,
+			});
+		};
 
 export default queryFn;

@@ -1,10 +1,33 @@
 export type StoneType = {
-    mine_name: string;
+    color: string;
+    coop_id: string | number;
+    coop_qc: number[];
+    created: string;
+    image: string;
+    info: {
+        status: 'reserved' | 'non-existent' | 'exist',
+        type: string,
+        total: number,
+        amount: number
+    };
+    last_updated: string;
     name: string;
-    amount: number;
-    total: number;
-    type: string;
-    thickness: string;
-    color: string,
-    status: 'reserved' | 'non-existent' | 'exist'
+    polish_type: number;
+    stone_type: number;
+    thickness: number;
 };
+
+
+
+// export type StoneType = {
+//     mine_name: string;
+//     name: string;
+//     amount: number;
+//     total: number;
+//     type: string;
+//     color: string,
+//     thickness: string;
+//     status: 'reserved' | 'non-existent' | 'exist'
+// };
+
+

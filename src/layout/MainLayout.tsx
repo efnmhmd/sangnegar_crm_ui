@@ -1,7 +1,7 @@
+import 'react-loading-skeleton/dist/skeleton.css';
 import { Outlet } from 'react-router-dom';
 import Container from '@components/Container';
 import Header from '@components/Header';
-import bgImage from '@assets/images/bg.png';
 
 function MainLayout() {
 	return (
