@@ -347,11 +347,11 @@ export default function Home() {
 					/>
 				)}
 
-				{coopQuery.data?.data.map((card, i) =>
+				{coopQuery.data?.data?.map((card) =>
 					gridList ? (
-						<GridStoneCard card={card} key={i} />
+						<GridStoneCard card={card} key={card.coop_id} />
 					) : (
-						<LineStoneCard card={card} key={i} />
+						<LineStoneCard card={card} key={card.coop_id} />
 					),
 				)}
 			</div>
