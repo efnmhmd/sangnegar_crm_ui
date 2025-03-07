@@ -1,73 +1,70 @@
-import useAuthStore from '@store/useAuthStore';
 import _axios from 'axios';
 import { toast } from 'react-toastify';
+import useAuthStore from '@store/useAuthStore';
 
-const storedToken = localStorage.getItem('access');
+const url = import.meta.env.VITE_BASE_URL;
+const tokenType = 'Bearer';
 
-// const url = import.meta.env.URL
-const url = 'http://185.73.113.49:8000'
-
-// const token_type = import.meta.env.URL // like JWT or Berear
-const token_type = 'Berear' // like JWT or Berear
-
-
+// Initialize Axios instance
 const axios = _axios.create({
 	baseURL: url,
-	timeout: 60 * 1000, // 60 secs
-	headers: {
-		'Content-Type': 'application/json',
-		...(storedToken ? { Authorization: `${token_type} ${storedToken}` } : {}),
-	},
-	validateStatus: function (status) {
-		return status >= 200 && status < 300; // default
-	},
+	timeout: 60 * 1000,
+	headers: { 'Content-Type': 'application/json' },
+	validateStatus: (status) => status >= 200 && status < 300,
 });
 
-export const setApiToken = (token: string | null) => {
-	if (token) axios.defaults.headers.common['Authorization'] = `${token_type} ${token}`;
-	else delete axios.defaults.headers.common['Authorization'];
+// Set initial token if available
+const setInitialToken = () => {
+	const { access } = useAuthStore.getState();
+	if (access) {
+		axios.defaults.headers.common['Authorization'] = `${tokenType} ${access}`;
+	}
 };
+setInitialToken();
 
-
-axios.interceptors.request.use(function (config) {
-	if (config.url === '/token/') return config
-
-	const { refresh, setToken } = useAuthStore()
-	const accessExpireTime = localStorage.getItem('access-exp')
-	const now = Date.now() / 1000
-
-	if (!refresh) return config
-
-	if (accessExpireTime && +accessExpireTime + 10 >= now) {
-		axios.post(url + '/refresh/', { refresh }).then(res => {
-			if (res.data.access) setToken(res.data.access, refresh)
-		})
+// Subscribe to token changes
+useAuthStore.subscribe((state) => {
+	if (state.access) {
+		axios.defaults.headers.common['Authorization'] = `${tokenType} ${state.access}`;
 	} else {
-		console.log('token is valid');
+		delete axios.defaults.headers.common['Authorization'];
+	}
+});
+
+// Request interceptor for token refresh
+axios.interceptors.request.use((config) => {
+	if (config.url === '/token/') return config;
+
+	const { refresh } = useAuthStore.getState();
+	const accessExpireTime = localStorage.getItem('access-exp');
+	const now = Date.now() / 1000;
+
+	if (!refresh) return config;
+
+	if (accessExpireTime && +accessExpireTime + 10 <= now) {
+		axios.post(url + '/refresh/', { refresh }).then((res) => {
+			if (res.data.access) {
+				useAuthStore.getState().setToken(res.data.access, refresh);
+			}
+		});
 	}
 
 	return config;
-}, function (error) {
-	return Promise.reject(error);
-})
+});
 
+// Response interceptor for handling 401 errors
 axios.interceptors.response.use(
 	(response) => response,
 	(error) => {
-		if (error.response) {
-			const { status, data } = error.response;
-
-			if (status === 401) {
-				useAuthStore.getState().tokenExpired();
-				toast.error(data.message, { toastId: data.message });
-			}
+		if (error.response?.status === 401) {
+			useAuthStore.getState().tokenExpired();
+			toast.error(error.response.data.message || 'Session expired');
 		} else {
-			console.error(error);
-			toast.error(error.message, { toastId: error.message });
+			toast.error(error.message || 'An error occurred');
 		}
-
 		return Promise.reject(error);
-	},
+	}
 );
+
 
 export default axios;
