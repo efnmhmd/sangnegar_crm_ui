@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Flip, ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -29,7 +30,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Suspense fallback={<p>loading ...</p>}>
 			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
+				<SkeletonTheme baseColor="#202020" highlightColor="#444">
+					<RouterProvider router={router} />
+				</SkeletonTheme>
 				<ToastContainer
 					hideProgressBar={true}
 					closeButton={false}
