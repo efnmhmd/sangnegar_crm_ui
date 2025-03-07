@@ -1,6 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';
-import { setApiToken } from '@api/axios';
 
 type AuthStoreType = {
 	access: string | null;
@@ -11,22 +10,19 @@ type AuthStoreType = {
 
 const useAuthStore = create<AuthStoreType>()((set) => ({
 	access: localStorage.getItem('access'),
-	refresh: localStorage.getItem('access'),
+	refresh: localStorage.getItem('refresh'),
 	setToken: (access, refresh) => {
 		const decoded = jwtDecode(access);
 		localStorage.setItem('access', access);
 		if (decoded.exp)
 			localStorage.setItem('access-exp', decoded.exp.toString());
 		localStorage.setItem('refresh', refresh);
-
-		set((state) => ({ ...state, access, refresh }));
-		setApiToken(access);
+		set({ access, refresh });
 	},
 	tokenExpired: () => {
 		localStorage.removeItem('access');
 		localStorage.removeItem('refresh');
-		set((state) => ({ ...state, access: null, refresh: null }));
-		setApiToken(null);
+		set({ access: null, refresh: null });
 	},
 }));
 
