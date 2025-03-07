@@ -14,14 +14,14 @@ const Table = ({ data, columns }) => {
 	return (
 		<table className="w-full">
 			<thead>
-				{table.getHeaderGroups().map((headerGroup) => (
+				{table.getHeaderGroups().map((headerGroup, i) => (
 					<tr
-						key={headerGroup.id}
+						key={i}
 						className="border-b border-b-gray-700 text-right"
 					>
-						{headerGroup.headers.map((header) => (
+						{headerGroup.headers.map((header, index) => (
 							<th
-								key={header.id}
+								key={index}
 								className="p-4 text-base font-normal"
 							>
 								{header.isPlaceholder
@@ -36,13 +36,13 @@ const Table = ({ data, columns }) => {
 				))}
 			</thead>
 			<tbody>
-				{table.getRowModel().rows.map((row) => (
+				{table.getRowModel().rows.map((row, index) => (
 					<tr
-						key={row.id}
+						key={index}
 						className="duration-150 even:bg-black/40 hover:bg-primary/35"
 					>
-						{row.getVisibleCells().map((cell) => (
-							<td key={cell.id} className="p-4">
+						{row.getVisibleCells().map((cell, index) => (
+							<td key={index} className="p-4">
 								{flexRender(
 									cell.column.columnDef.cell,
 									cell.getContext(),
