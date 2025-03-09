@@ -4,17 +4,15 @@ export type StoneType = {
     coop_qc: number[];
     created: string;
     image: string;
-    info: {
-        status: 'reserved' | 'non-existent' | 'exist',
-        type: string,
-        total: number,
-        amount: number
-    };
+    status: 'reserved' | 'non-existent' | 'exist',
+    total: number,
+    amount: number
     last_updated: string;
     name: string;
     polish_type: number;
     stone_type: number;
     thickness: number;
+    description?: string
 };
 
 
