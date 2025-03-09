@@ -1,4 +1,5 @@
 export type StoneType = {
+    id: number
     color: string;
     coop_id: string | number;
     coop_qc: number[];

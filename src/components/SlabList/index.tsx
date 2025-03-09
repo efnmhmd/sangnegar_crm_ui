@@ -26,9 +26,9 @@ function SlabList({ gridList }) {
 
 			{slabQuery.data?.data?.map((card: StoneType) =>
 				gridList ? (
-					<GridStoneCard card={card} key={card.coop_id} />
+					<GridStoneCard card={card} key={card.id} />
 				) : (
-					<LineStoneCard card={card} key={card.coop_id} />
+					<LineStoneCard card={card} key={card.id} />
 				),
 			)}
 		</Fragment>

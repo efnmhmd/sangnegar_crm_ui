@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import { Fragment, useState } from 'react';
 import { StoneCardType } from '@/types/StoneCard.type';
 import arrowImage from '@assets/images/arrow.svg';
@@ -15,8 +16,12 @@ import typeImage from '@assets/images/type.svg';
 function CoopDetail({ card }: StoneCardType) {
 	const [showSlabDetail, setShowSlabDetail] = useState<boolean>(false);
 
+	const parsed = queryString.parse(location.search);
+
+	const isSlab = parsed.show === 'slab';
+
 	return (
-		<div>
+		<div className="">
 			<div className="flex items-start justify-between gap-[2.2812rem] border-b px-[1.651rem] py-6">
 				<div className="mx-auto h-[11rem] flex-1 rounded-2xl border-2">
 					<img
@@ -184,6 +189,14 @@ function CoopDetail({ card }: StoneCardType) {
 						</div>
 					</div>
 				</Fragment>
+			) : isSlab ? (
+				<div className="mx-auto max-h-[25rem] flex-1 items-stretch overflow-hidden py-8">
+					<img
+						src={card.image}
+						className="h-full w-full object-cover"
+						alt="stone"
+					/>
+				</div>
 			) : (
 				<Fragment>
 					<div className="flex items-center justify-between py-[2.3rem]">
