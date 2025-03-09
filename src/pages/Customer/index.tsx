@@ -154,6 +154,7 @@ function Customer() {
 				<Table data={customerData} columns={CUstomerColumnsDef} />
 			</div>
 			<Dialog
+				animation="toLeft"
 				header={
 					<div className="flex items-center justify-between">
 						<div className="cursor-pointer">
@@ -167,7 +168,7 @@ function Customer() {
 						</div>
 					</div>
 				}
-				isOpen={Boolean(openCustomerDetail)}
+				isOpen={openCustomerDetail}
 				setIsOpen={setOpenCustomerDetail}
 			>
 				<SingleCustomer id={openCustomerDetail} />

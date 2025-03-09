@@ -1,263 +1,33 @@
-import { useState } from 'react';
+import queryString from 'query-string';
+import { useEffect, useState } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useActionData, useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
+import CoopList from '@components/CoopList';
+import Filter from '@components/Filter';
+import SlabList from '@components/SlabList';
 import GridStoneCard from '@components/StoneCard/GridStoneCard';
 import LineStoneCard from '@components/StoneCard/LineStoneCard';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import useCoopQuery from '@hooks/query/useCoopsQuery';
+import useSlabQuery from '@hooks/query/useSlabQuery';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { StoneType } from '@/types/Stone.type';
 
 export default function Home() {
 	const [showFilterSection, setShowFilterSection] = useState<boolean>(true);
 
-	const [gridList, setGridList] = useState<boolean>(true);
+	const [activeTab, setActiveTab] = useState<number>(0);
 
-	const coopQuery = useCoopQuery();
+	const [gridList, setGridList] = useState<boolean>(true);
 
 	return (
 		<div className="flex items-start justify-between gap-2">
-			<div
-				className={twMerge(
-					'overflow-hidden p-2 duration-200',
-					showFilterSection
-						? 'flex-1 opacity-100'
-						: 'pointer-events-none flex-[0] opacity-0',
-				)}
-			>
-				<div className="rounded-2xl border-[3px] border-primary bg-black/35 p-4">
-					<TabGroup defaultIndex={0}>
-						<TabList className="flex items-center justify-between gap-2 rounded-xl bg-transparent p-2 shadow-inside">
-							<Tab className="flex-1 rounded-lg p-2 outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
-								کوپ
-							</Tab>
-							<Tab className="flex-1 rounded-lg p-2 outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
-								اسلب
-							</Tab>
-						</TabList>
-						<TabPanels>
-							<TabPanel className="py-4">
-								<div className="space-y-2">
-									<h3>نوع</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											مرمریت
-										</div>
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											گرانیت
-										</div>
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											تراورتن
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>رنگ زمینه</h3>
-									<div className="grid grid-cols-3 gap-2">
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-red-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												قرمز
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-blue-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												آبی
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-green-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												سبز
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-yellow-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												زرد
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>نوع فرآوری</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											پالیش
-										</div>
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											بوش همر
-										</div>
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											ساب
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>ضخامت</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>200</span>
-											<span>CM</span>
-										</div>
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>300</span>
-											<span>CM</span>
-										</div>
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>400</span>
-											<span>CM</span>
-										</div>
-									</div>
-								</div>
-							</TabPanel>
-							<TabPanel className="py-4">
-								<div className="space-y-2">
-									<h3>نوع</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											مرمریت
-										</div>
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											گرانیت
-										</div>
-										<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-											تراورتن
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>رنگ زمینه</h3>
-									<div className="grid grid-cols-3 gap-2">
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-red-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												قرمز
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-blue-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												آبی
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-green-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												سبز
-											</span>
-										</div>
-										<div
-											className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-											style={{
-												borderRadius:
-													'100px 300px 300px 100px',
-											}}
-										>
-											<div className="size-7 rounded-full bg-gradient-to-r from-yellow-600 to-white"></div>
-											<span className="block flex-1 text-start">
-												زرد
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>نوع فرآوری</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											پالیش
-										</div>
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											بوش همر
-										</div>
-										<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											ساب
-										</div>
-									</div>
-								</div>
-
-								<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-								<div className="space-y-2">
-									<h3>ضخامت</h3>
-									<div className="flex flex-wrap items-center justify-between gap-2">
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>200</span>
-											<span>CM</span>
-										</div>
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>300</span>
-											<span>CM</span>
-										</div>
-										<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-											<span>400</span>
-											<span>CM</span>
-										</div>
-									</div>
-								</div>
-							</TabPanel>
-						</TabPanels>
-					</TabGroup>
-				</div>
-			</div>
-
+			<Filter
+				isOpen={showFilterSection}
+				active={activeTab}
+				setActive={setActiveTab}
+			/>
 			{/* cards */}
 			<div
 				className={twMerge(
@@ -333,13 +103,20 @@ export default function Home() {
 				</div>
 				{/* card */}
 
-				{coopQuery.isLoading &&
+				{activeTab === 0 ? (
+					<CoopList gridList={gridList} />
+				) : (
+					<SlabList gridList={gridList} />
+				)}
+
+				{/* {coopQuery.isPending &&
+					activeTab === 0 &&
 					gridList &&
 					Array.from({ length: 8 }).map((_, index) => (
 						<Skeleton key={index} className="h-[10rem] w-full" />
 					))}
 
-				{coopQuery.isLoading && !gridList && (
+				{coopQuery.isPending && !gridList && activeTab === 0 && (
 					<Skeleton
 						count={3}
 						containerClassName="col-span-full"
@@ -347,13 +124,14 @@ export default function Home() {
 					/>
 				)}
 
-				{coopQuery.data?.data?.map((card) =>
-					gridList ? (
-						<GridStoneCard card={card} key={card.coop_id} />
-					) : (
-						<LineStoneCard card={card} key={card.coop_id} />
-					),
-				)}
+				{activeTab === 0 &&
+					coopQuery.data?.data?.map((card) =>
+						gridList ? (
+							<GridStoneCard card={card} key={card.coop_id} />
+						) : (
+							<LineStoneCard card={card} key={card.coop_id} />
+						),
+					)} */}
 			</div>
 		</div>
 	);
