@@ -201,7 +201,7 @@ function SingleCustomer({ id }: { id: number }) {
 							<img src={phoneIcon} alt="" className="size-5" />
 						</div>
 						<div className="flex items-center justify-end gap-4">
-							<span>alirezadavuodi@outlook.com</span>
+							<span>alihabib1212@gmail.com</span>
 							<img src={mailIcon} alt="" className="size-5" />
 						</div>
 						<div className="flex items-center justify-end gap-4">
