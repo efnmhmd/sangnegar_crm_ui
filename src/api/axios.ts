@@ -1,16 +1,16 @@
-import _axios from 'axios';
+import _axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import useAuthStore from '@store/useAuthStore';
+import { AuthResponse, RetryRequestConfig } from '@/types/axios.type';
+
 
 const url = import.meta.env.VITE_BASE_URL;
 const tokenType = 'Bearer';
 
-// Initialize Axios instance
 const axios = _axios.create({
 	baseURL: url,
 	timeout: 60 * 1000,
 	headers: { 'Content-Type': 'application/json' },
-	validateStatus: (status) => status >= 200 && status < 300,
 });
 
 // Set initial token if available
@@ -31,36 +31,33 @@ useAuthStore.subscribe((state) => {
 	}
 });
 
-// Request interceptor for token refresh
-axios.interceptors.request.use((config) => {
-	if (config.url === '/token/') return config;
 
-	const { refresh } = useAuthStore.getState();
-	const accessExpireTime = localStorage.getItem('access-exp');
-	const now = Date.now() / 1000;
-
-	if (!refresh) return config;
-
-	if (accessExpireTime && +accessExpireTime + 10 <= now) {
-		axios.post(url + '/refresh/', { refresh }).then((res) => {
-			if (res.data.access) {
-				useAuthStore.getState().setToken(res.data.access, refresh);
-			}
-		});
-	}
-
-	return config;
-});
-
-// Response interceptor for handling 401 errors
 axios.interceptors.response.use(
 	(response) => response,
-	(error) => {
-		if (error.response?.status === 401) {
-			useAuthStore.getState().tokenExpired();
-			toast.error(error.response.data.message || 'Session expired');
-		} else {
-			toast.error(error.message || 'An error occurred');
+	async (error: AxiosError) => {
+		console.log('start');
+		const originalRequest = error.config as RetryRequestConfig
+
+		console.log({ originalRequest });
+
+		if (error.response?.status === 401 && !originalRequest._retry) {
+			originalRequest._retry = true
+			console.log('start for refresh token');
+			try {
+				const { refresh } = useAuthStore.getState();
+				if (!refresh) return Promise.reject(error);
+				const response = await _axios.post<AuthResponse>(import.meta.env.VITE_BASE_URL + '/token/refresh/', { refresh })
+				const { access } = response.data
+				useAuthStore.getState().setToken(access, refresh);
+				setInitialToken()
+				return axios(originalRequest);
+			} catch (error) {
+				console.error('Token refresh failed:', error);
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('refreshToken');
+				window.location.href = '/login';
+				return Promise.reject(error);
+			}
 		}
 		return Promise.reject(error);
 	}
