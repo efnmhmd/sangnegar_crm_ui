@@ -1,15 +1,8 @@
 import queryString from 'query-string';
-import { act, useEffect, useState } from 'react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import GridStoneCard from '@components/StoneCard/GridStoneCard';
-import LineStoneCard from '@components/StoneCard/LineStoneCard';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import useCoopQuery from '@hooks/query/useCoopsQuery';
-import useSlabQuery from '@hooks/query/useSlabQuery';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { StoneType } from '@/types/Stone.type';
 
 function Filter({
 	isOpen,
@@ -49,244 +42,148 @@ function Filter({
 		});
 	};
 
+	const typeFilter = useMemo(
+		() => [
+			{ label: 'مرمریت', value: '#' },
+			{ label: 'گرانیک', value: '#' },
+			{ label: 'تراورتن', value: '#' },
+		],
+		[],
+	);
+
+	const madeTypeFilter = useMemo(
+		() => [
+			{ label: 'پالیش', value: '#' },
+			{ label: 'بوش‌همر', value: '#' },
+			{ label: 'ساب', value: '#' },
+		],
+		[],
+	);
+	const ThickFilter = useMemo(
+		() => [
+			{ label: '5cm', value: '#' },
+			{ label: '5cm', value: '#' },
+			{ label: '5cm', value: '#' },
+		],
+		[],
+	);
+
+	const colorFilter = useMemo(
+		() => [
+			{
+				label: 'قرمز',
+				color: 'bg-red-gradient',
+			},
+			{
+				label: 'آبی',
+				color: 'bg-blue-gradient',
+			},
+			{
+				label: 'سبز',
+				color: 'bg-green-gradient',
+			},
+			{
+				label: 'زرد',
+				color: 'bg-orange-gradient',
+			},
+		],
+		[],
+	);
+
 	return (
 		<div
 			className={twMerge(
-				'overflow-hidden p-2 duration-200',
+				'overflow-hidden duration-200',
 				isOpen
-					? 'flex-1 opacity-100'
+					? 'flex-1 p-2 opacity-100'
 					: 'pointer-events-none flex-[0] opacity-0',
 			)}
 		>
-			<div className="rounded-2xl border-[3px] border-primary bg-black/35 p-4">
+			<div className="rounded-2xl border bg-black/35 p-1.5">
 				<TabGroup selectedIndex={active} onChange={handleChangeFilter}>
 					<TabList className="flex items-center justify-between gap-2 rounded-xl bg-transparent p-2 shadow-inside">
-						<Tab className="flex-1 rounded-lg p-2 outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
+						<Tab className="flex-1 rounded-lg p-1 text-sm font-semibold outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
 							کوپ
 						</Tab>
-						<Tab className="flex-1 rounded-lg p-2 outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
+						<Tab className="flex-1 rounded-lg p-1 text-sm font-semibold outline-none duration-200 data-[selected]:bg-primary data-[selected]:text-white">
 							اسلب
 						</Tab>
 					</TabList>
 					<TabPanels>
-						<TabPanel className="py-4">
-							<div className="space-y-2">
-								<h3>نوع</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										مرمریت
-									</div>
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										گرانیت
-									</div>
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										تراورتن
-									</div>
-								</div>
-							</div>
-
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-							<div className="space-y-2">
-								<h3>رنگ زمینه</h3>
-								<div className="grid grid-cols-3 gap-2">
+						<div className="space-y-2">
+							<h3>نوع</h3>
+							<div className="flex flex-wrap items-center justify-between gap-2">
+								{typeFilter.map((type, index) => (
 									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
+										key={index}
+										className="flex-1 cursor-pointer text-nowrap rounded-[1.062rem] border border-white/85 p-1 text-center text-lg font-normal duration-200 hover:bg-primary"
+									>
+										{type.label}
+									</div>
+								))}
+							</div>
+						</div>
+
+						<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
+
+						<div className="space-y-2">
+							<h3>رنگ زمینه</h3>
+							<div className="flex flex-col flex-wrap items-center gap-2 md:flex-row">
+								{colorFilter.map((color, index) => (
+									<div
+										key={index}
+										className="flex w-full flex-1 cursor-pointer items-center gap-2 border border-white p-0.5"
 										style={{
 											borderRadius:
 												'100px 300px 300px 100px',
 										}}
 									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-red-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											قرمز
+										<div
+											className={twMerge(
+												'size-7 shrink-0 rounded-full to-white',
+												color.color,
+											)}
+										/>
+
+										<span className="block text-center text-sm font-semibold">
+											{color.label}
 										</span>
 									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-blue-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											آبی
-										</span>
-									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-green-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											سبز
-										</span>
-									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-yellow-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											زرد
-										</span>
-									</div>
-								</div>
+								))}
 							</div>
+						</div>
 
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
+						<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
 
-							<div className="space-y-2">
-								<h3>نوع فرآوری</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										پالیش
-									</div>
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										بوش همر
-									</div>
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										ساب
-									</div>
-								</div>
-							</div>
-
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-							<div className="space-y-2">
-								<h3>ضخامت</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>200</span>
-										<span>CM</span>
-									</div>
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>300</span>
-										<span>CM</span>
-									</div>
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>400</span>
-										<span>CM</span>
-									</div>
-								</div>
-							</div>
-						</TabPanel>
-						<TabPanel className="py-4">
-							<div className="space-y-2">
-								<h3>نوع</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										مرمریت
-									</div>
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										گرانیت
-									</div>
-									<div className="flex-1 cursor-pointer rounded-xl border border-white p-1 text-center duration-200 hover:bg-primary">
-										تراورتن
-									</div>
-								</div>
-							</div>
-
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-							<div className="space-y-2">
-								<h3>رنگ زمینه</h3>
-								<div className="grid grid-cols-3 gap-2">
+						<div className="space-y-2">
+							<h3>نوع فرآوری</h3>
+							<div className="flex flex-col flex-wrap items-center justify-between gap-2 md:flex-row">
+								{madeTypeFilter.map((made, index) => (
 									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
+										key={index}
+										className="w-full flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary"
 									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-red-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											قرمز
-										</span>
+										{made.label}
 									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-blue-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											آبی
-										</span>
-									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-green-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											سبز
-										</span>
-									</div>
-									<div
-										className="flex flex-1 items-center justify-between gap-2 border border-white p-0.5"
-										style={{
-											borderRadius:
-												'100px 300px 300px 100px',
-										}}
-									>
-										<div className="size-7 rounded-full bg-gradient-to-r from-yellow-600 to-white"></div>
-										<span className="block flex-1 text-start">
-											زرد
-										</span>
-									</div>
-								</div>
+								))}
 							</div>
+						</div>
 
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
+						<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
 
-							<div className="space-y-2">
-								<h3>نوع فرآوری</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										پالیش
+						<div className="space-y-2">
+							<h3>ضخامت</h3>
+							<div className="flex flex-col flex-wrap items-center justify-between gap-2 md:flex-row">
+								{ThickFilter.map((made, index) => (
+									<div
+										key={index}
+										className="w-full flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary"
+									>
+										{made.label}
 									</div>
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										بوش همر
-									</div>
-									<div className="flex-1 cursor-pointer rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										ساب
-									</div>
-								</div>
+								))}
 							</div>
-
-							<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
-
-							<div className="space-y-2">
-								<h3>ضخامت</h3>
-								<div className="flex flex-wrap items-center justify-between gap-2">
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>200</span>
-										<span>CM</span>
-									</div>
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>300</span>
-										<span>CM</span>
-									</div>
-									<div className="flex-1 cursor-pointer space-x-1 rounded-lg border border-white p-1 text-center duration-200 hover:bg-primary">
-										<span>400</span>
-										<span>CM</span>
-									</div>
-								</div>
-							</div>
-						</TabPanel>
+						</div>
 					</TabPanels>
 				</TabGroup>
 			</div>

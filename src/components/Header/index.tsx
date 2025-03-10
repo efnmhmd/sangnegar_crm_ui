@@ -17,7 +17,7 @@ function Header() {
 	const navigate = useNavigate();
 
 	return (
-		<div className="flex h-24 items-center justify-between py-4">
+		<div className="flex h-24 items-center justify-between px-4 py-4">
 			<div className="flex flex-1 items-center gap-2">
 				<Button
 					size="sm"

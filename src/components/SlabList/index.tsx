@@ -4,7 +4,6 @@ import GridStoneCard from '@components/StoneCard/GridStoneCard';
 import LineStoneCard from '@components/StoneCard/LineStoneCard';
 import useSlabQuery from '@hooks/query/useSlabQuery';
 import { StoneType } from '@/types/Stone.type';
-import { StoneCardType } from '@/types/StoneCard.type';
 
 function SlabList({ gridList }) {
 	const slabQuery = useSlabQuery();

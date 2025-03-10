@@ -17,13 +17,13 @@ function Button({
 		sm: 'size-8 rounded-[0.875rem]',
 		md: 'size-11 rounded-[1.062rem]',
 		lg: 'size-14 rounded-[1.062rem]',
-		auto: 'w-fit rounded-[1.062rem]',
+		auto: 'w-fit h-11 rounded-[1.062rem]',
 	};
 
 	return (
 		<button
 			className={twMerge(
-				'flex shrink-0 items-center justify-center border-2',
+				'flex shrink-0 items-center justify-center border-2 duration-200',
 				withBorder ? 'border-primary' : 'border-transparent',
 				sizeStyle[size],
 				className,

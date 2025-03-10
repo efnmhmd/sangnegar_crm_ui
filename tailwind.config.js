@@ -21,6 +21,16 @@ export default {
 			boxShadow: {
 				inside: 'inset 0px 0px 26px -3px rgba(83, 172, 255, 0.3)',
 			},
+			backgroundImage: {
+				'blue-gradient':
+					'linear-gradient(to right, #1e3a8a 0% 25%, #2563eb 25% 50%, #60a5fa 50% 75%, #93c5fd 75% 100%)',
+				'green-gradient':
+					'linear-gradient(to right, #14532d 0% 25%, #16a34a 25% 50%, #4ade80 50% 75%, #86efac 75% 100%)',
+				'orange-gradient':
+					'linear-gradient(to right, #7c2d12 0% 25%, #ea580c 25% 50%, #fb923c 50% 75%, #fdba74 75% 100%)',
+				'red-gradient':
+					'linear-gradient(to right, #7f1d1d 0% 25%, #dc2626 25% 50%, #f87171 50% 75%,#fca5a5 75% 100%)',
+			},
 		},
 	},
 	plugins: [],
