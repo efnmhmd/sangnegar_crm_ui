@@ -36,7 +36,8 @@
 			"@utils/*": ["./src/utils/*"],
 			"@views/*": ["./src/views/*"],
 			"@/*": ["./src/*"]
-		}
+		},
+		"types": ["vite-plugin-svgr/client"]
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "build", "dist", "src/**/*.js", "src/**/*.jsx"],
