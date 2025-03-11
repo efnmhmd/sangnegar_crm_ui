@@ -10,10 +10,11 @@ import Dialog from '@components/Dialog';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { StoneCardType } from '@/types/StoneCard.type';
-import diagramImage from '@assets/images/diagram.svg';
-import graphImage from '@assets/images/graph.svg';
-import resizeImage from '@assets/images/resize.svg';
-import scanImage from '@assets/images/scan.svg';
+import DiagramImage from '@assets/images/diagram.svg?react';
+import GraphImage from '@assets/images/graph.svg?react';
+import MountainImage from '@assets/images/mountain.svg?react';
+import ResizeImage from '@assets/images/resize.svg?react';
+import ScanImage from '@assets/images/scan.svg?react';
 import stoneImage from '@assets/images/stone.png';
 
 function LineStoneCard({ card }: StoneCardType) {
@@ -50,7 +51,7 @@ function LineStoneCard({ card }: StoneCardType) {
 					</div>
 				</div>
 				<div className="flex w-full items-center justify-between">
-					<div className="mx-auto flex h-[11rem] w-[13.6875rem] items-center justify-center overflow-hidden rounded-md p-4">
+					<div className="mx-auto flex h-[8rem] w-[10rem] items-center justify-center overflow-hidden rounded-md p-4">
 						<img
 							src={card.image}
 							className="h-full w-full rounded-lg object-fill"
@@ -74,14 +75,10 @@ function LineStoneCard({ card }: StoneCardType) {
 							{card.name}
 						</h2>
 						<div className="w-full">
-							<div className="flex items-end justify-between gap-1 rounded-3xl p-2 text-white/50">
-								<div className="relative flex flex-1 items-center justify-center gap-4 px-2 py-3 pb-1">
-									<img
-										src={graphImage}
-										alt=""
-										className="size-6 opacity-50"
-									/>
-									<span className="text-lg">
+							<div className="grid grid-cols-4 gap-1 rounded-3xl p-2 text-white/50">
+								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1">
+									<GraphImage className="size-5 shrink-0" />
+									<span className="truncate text-lg">
 										{card.stone_type}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
@@ -89,25 +86,19 @@ function LineStoneCard({ card }: StoneCardType) {
 									<div className="absolute -left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-0 top-0 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50" />
 								</div>
-								<div className="relative flex flex-1 items-center justify-center gap-4 px-2 py-3 pb-1">
-									<img
-										src={scanImage}
-										alt=""
-										className="size-6 opacity-50"
-									/>
-									<span className="text-lg">LM.4L:210</span>
+								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1">
+									<ScanImage className="size-5 shrink-0" />
+									<span className="truncate text-lg">
+										LM.4L:210
+									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
 									<div className="absolute -left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-0 top-0 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50" />
 								</div>
-								<div className="relative flex flex-1 items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
-									<img
-										src={diagramImage}
-										alt=""
-										className="size-6 opacity-50"
-									/>
-									<span className="text-lg">
+								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
+									<DiagramImage className="size-5 shrink-0" />
+									<span className="truncate text-lg">
 										{card.color}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
@@ -115,13 +106,9 @@ function LineStoneCard({ card }: StoneCardType) {
 									<div className="absolute -left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-0 top-0 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50" />
 								</div>
-								<div className="relative flex flex-1 items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
-									<img
-										src={resizeImage}
-										alt=""
-										className="size-6 opacity-50"
-									/>
-									<span className="text-lg">
+								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
+									<ResizeImage className="size-5 shrink-0" />
+									<span className="truncate text-lg">
 										{card.thickness}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[90%] -translate-x-1/2 rounded-md bg-white/50" />

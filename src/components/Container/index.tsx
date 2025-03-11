@@ -10,7 +10,7 @@ function Container({ children, className = '' }: ContainerProps) {
 	return (
 		<div
 			className={twMerge(
-				'lx:max-w-[1300px] container mx-auto px-4',
+				'lx:max-w-[1250px] container mx-auto px-4',
 				className,
 			)}
 		>

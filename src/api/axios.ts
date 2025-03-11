@@ -35,11 +35,7 @@ useAuthStore.subscribe((state) => {
 axios.interceptors.response.use(
 	(response) => response,
 	async (error: AxiosError) => {
-		console.log('start');
 		const originalRequest = error.config as RetryRequestConfig
-
-		console.log({ originalRequest });
-
 		if (error.response?.status === 401 && !originalRequest._retry) {
 			originalRequest._retry = true
 			console.log('start for refresh token');

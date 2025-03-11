@@ -8,12 +8,12 @@ import { twMerge } from 'tailwind-merge';
 import CoopDetail from '@components/CoopDetail';
 import Dialog from '@components/Dialog';
 import RadialSeparators from '@components/RedialSeperators';
-import { Icon } from '@iconify/react/dist/iconify.js';
 import { StoneCardType } from '@/types/StoneCard.type';
-import diagramImage from '@assets/images/diagram.svg';
-import graphImage from '@assets/images/graph.svg';
-import resizeImage from '@assets/images/resize.svg';
-import scanImage from '@assets/images/scan.svg';
+import DiagramImage from '@assets/images/diagram.svg?react';
+import GraphImage from '@assets/images/graph.svg?react';
+import MountainImage from '@assets/images/mountain.svg?react';
+import ResizeImage from '@assets/images/resize.svg?react';
+import ScanImage from '@assets/images/scan.svg?react';
 import stoneImage from '@assets/images/stone.png';
 
 function GridStoneCard({ card }: StoneCardType) {
@@ -50,13 +50,13 @@ function GridStoneCard({ card }: StoneCardType) {
 					</div>
 				</div>
 				<div className="flex items-center gap-2">
-					<Icon icon="mynaui:mountain" className="size-8" />
+					<MountainImage className="size-6 text-white/65" />
 					<span>{card.name}</span>
 					{card.amount && (
 						<div className="ms-auto flex items-center justify-center">
 							<CircularProgressbarWithChildren
 								value={(card.amount / card.total) * 100}
-								className="w-10"
+								className="w-8"
 								text={String(
 									new Number(card.amount).toLocaleString(
 										'fa-ir',
@@ -84,7 +84,7 @@ function GridStoneCard({ card }: StoneCardType) {
 						</div>
 					)}
 				</div>
-				<div className="mx-auto h-[11rem] w-[13.6875rem]">
+				<div className="mx-auto h-[8rem] w-[10rem]">
 					<img
 						src={card.image}
 						className="h-full w-full object-contain"
@@ -96,37 +96,27 @@ function GridStoneCard({ card }: StoneCardType) {
 				</div>
 				<h2 className="py-4 text-center">{card.name}</h2>
 				<div className="relative grid grid-cols-2 gap-4 rounded-3xl border-[1px] border-black p-2 text-white/50 shadow-inner shadow-black">
-					<div className="flex items-center justify-start gap-4 px-2 py-2">
-						<img
-							src={graphImage}
-							alt=""
-							className="size-5 opacity-50"
-						/>
-						<span className="text-sm">{card.stone_type}</span>
+					<div className="flex items-center justify-start gap-4 truncate px-2 py-2">
+						<GraphImage className="size-5 shrink-0" />
+						<span className="text-sm font-normal">
+							{card.stone_type}
+						</span>
 					</div>
-					<div className="flex items-center justify-end gap-4 px-2 py-2">
-						<span className="text-sm">LM.4L:210</span>
-						<img
-							src={scanImage}
-							alt=""
-							className="size-5 opacity-50"
-						/>
+					<div className="flex items-center justify-end gap-4 truncate px-2 py-2">
+						<span className="text-sm font-normal">LM.4L:210</span>
+						<ScanImage className="size-5 shrink-0" />
 					</div>
-					<div className="flex items-center justify-start gap-4 px-2 py-2 text-center">
-						<img
-							src={diagramImage}
-							alt=""
-							className="size-5 opacity-50"
-						/>
-						<span className="text-sm">{card.color}</span>
+					<div className="flex items-center justify-start gap-4 truncate px-2 py-2 text-center">
+						<DiagramImage className="size-5 shrink-0" />
+						<span className="text-sm font-normal">
+							{card.color}
+						</span>
 					</div>
-					<div className="flex items-center justify-end gap-4 px-2 py-2 text-center">
-						<span className="text-sm">{card.thickness}</span>
-						<img
-							src={resizeImage}
-							alt=""
-							className="size-5 opacity-50"
-						/>
+					<div className="flex items-center justify-end gap-4 truncate px-2 py-2 text-center">
+						<span className="text-sm font-normal">
+							{card.thickness}
+						</span>
+						<ResizeImage className="size-5 shrink-0" />
 					</div>
 					<div className="pointer-events-none absolute left-0 top-0 h-full w-full">
 						<div className="absolute left-1/2 top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50" />
