@@ -4,9 +4,10 @@ import {
 	buildStyles,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { PhotoView } from 'react-photo-view';
+import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import CoopDetail from '@components/CoopDetail';
-import Dialog from '@components/Dialog';
+import Checkbox from '@components/Checkbox';
 import RadialSeparators from '@components/RedialSeperators';
 import { StoneCardType } from '@/types/StoneCard.type';
 import DiagramImage from '@assets/images/diagram.svg?react';
@@ -16,17 +17,31 @@ import ResizeImage from '@assets/images/resize.svg?react';
 import ScanImage from '@assets/images/scan.svg?react';
 import stoneImage from '@assets/images/stone.png';
 
-function GridStoneCard({ card }: StoneCardType) {
-	const [showCoopDetail, setShowCoopDetail] = useState<number>(0);
+function GridStoneCard({
+	card,
+	isSlab = false,
+	selectable = false,
+}: StoneCardType) {
+	const navigate = useNavigate();
 
 	return (
 		<Fragment>
-			<button
-				onClick={() => setShowCoopDetail(1)}
+			<div
+				onClick={() => {
+					if (!isSlab) {
+						navigate(`/coop/${card.id}`);
+					}
+				}}
 				className={twMerge(
 					'relative overflow-hidden rounded-3xl bg-black/30 p-2',
+					!isSlab && 'cursor-pointer',
 				)}
 			>
+				{selectable && (
+					<div className="absolute left-3 top-3">
+						<Checkbox />
+					</div>
+				)}
 				<div
 					className={twMerge(
 						'absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/60',
@@ -85,14 +100,27 @@ function GridStoneCard({ card }: StoneCardType) {
 					)}
 				</div>
 				<div className="mx-auto h-[8rem] w-[10rem]">
-					<img
-						src={card.image}
-						className="h-full w-full object-contain"
-						alt="stone"
-						onError={({ currentTarget }) => {
-							currentTarget.src = stoneImage;
-						}}
-					/>
+					{isSlab ? (
+						<PhotoView src={card.image}>
+							<img
+								src={card.image}
+								className="h-full w-full object-contain"
+								alt="stone"
+								onError={({ currentTarget }) => {
+									currentTarget.src = stoneImage;
+								}}
+							/>
+						</PhotoView>
+					) : (
+						<img
+							src={card.image}
+							className="h-full w-full object-contain"
+							alt="stone"
+							onError={({ currentTarget }) => {
+								currentTarget.src = stoneImage;
+							}}
+						/>
+					)}
 				</div>
 				<h2 className="py-4 text-center">{card.name}</h2>
 				<div className="relative grid grid-cols-2 gap-4 rounded-3xl border-[1px] border-black p-2 text-white/50 shadow-inner shadow-black">
@@ -128,10 +156,7 @@ function GridStoneCard({ card }: StoneCardType) {
 						<div className="absolute bottom-2 left-[49%] size-2 h-[30%] w-[1px] -translate-x-1/2 bg-white/50" />
 					</div>
 				</div>
-			</button>
-			<Dialog isOpen={showCoopDetail} setIsOpen={setShowCoopDetail}>
-				<CoopDetail card={card} />
-			</Dialog>
+			</div>
 		</Fragment>
 	);
 }

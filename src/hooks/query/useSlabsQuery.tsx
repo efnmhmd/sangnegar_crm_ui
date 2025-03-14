@@ -1,15 +1,11 @@
 import queryFn from '@api/queryFn';
 import { useQuery } from '@tanstack/react-query';
 
-function useSlabQuery(active) {
+export const useSlabsQUery = (id: string) => {
 	const query = useQuery({
+		queryKey: ['app', 'Slab', 'coop', id],
 		queryFn: queryFn(),
-		queryKey: ['app', 'Slab'],
-		staleTime: Infinity,
-		enabled: Boolean(active),
 	});
 
 	return query;
-}
-
-export default useSlabQuery;
+};

@@ -49,8 +49,8 @@ axios.interceptors.response.use(
 				return axios(originalRequest);
 			} catch (error) {
 				console.error('Token refresh failed:', error);
-				localStorage.removeItem('accessToken');
-				localStorage.removeItem('refreshToken');
+				localStorage.removeItem('access');
+				localStorage.removeItem('refresh');
 				window.location.href = '/login';
 				return Promise.reject(error);
 			}

@@ -1,33 +1,43 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import {
 	CircularProgressbarWithChildren,
 	buildStyles,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { PhotoView } from 'react-photo-view';
+import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import CoopDetail from '@components/CoopDetail';
-import Dialog from '@components/Dialog';
+import Checkbox from '@components/Checkbox';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { StoneCardType } from '@/types/StoneCard.type';
 import DiagramImage from '@assets/images/diagram.svg?react';
 import GraphImage from '@assets/images/graph.svg?react';
-import MountainImage from '@assets/images/mountain.svg?react';
 import ResizeImage from '@assets/images/resize.svg?react';
 import ScanImage from '@assets/images/scan.svg?react';
 import stoneImage from '@assets/images/stone.png';
 
-function LineStoneCard({ card }: StoneCardType) {
-	const [showCoopDetail, setShowCoopDetail] = useState<number>(0);
+function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
+	const navigate = useNavigate();
 
 	return (
 		<Fragment>
-			<button
-				onClick={() => setShowCoopDetail(1)}
+			<div
+				onClick={() => {
+					if (!isSlab) {
+						navigate(`/coop/${card.id}`);
+					}
+				}}
 				className={twMerge(
-					'relative col-span-full flex items-center overflow-hidden rounded-3xl bg-black/30 p-2',
+					'relative flex flex-1 items-center overflow-hidden rounded-3xl bg-black/30 p-2',
+					isSlab ? 'cursor-default' : 'cursor-pointer',
 				)}
 			>
+				{selectable && (
+					<div className="absolute left-3 top-3">
+						<Checkbox />
+					</div>
+				)}
 				<div
 					className={twMerge(
 						'absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/60',
@@ -52,14 +62,27 @@ function LineStoneCard({ card }: StoneCardType) {
 				</div>
 				<div className="flex w-full items-center justify-between">
 					<div className="mx-auto flex h-[8rem] w-[10rem] items-center justify-center overflow-hidden rounded-md p-4">
-						<img
-							src={card.image}
-							className="h-full w-full rounded-lg object-fill"
-							alt="stone"
-							onError={({ currentTarget }) => {
-								currentTarget.src = stoneImage;
-							}}
-						/>
+						{isSlab ? (
+							<PhotoView src={card.image}>
+								<img
+									src={card.image}
+									className="h-full w-full rounded-lg object-fill"
+									alt="stone"
+									onError={({ currentTarget }) => {
+										currentTarget.src = stoneImage;
+									}}
+								/>
+							</PhotoView>
+						) : (
+							<img
+								src={card.image}
+								className="h-full w-full rounded-lg object-fill"
+								alt="stone"
+								onError={({ currentTarget }) => {
+									currentTarget.src = stoneImage;
+								}}
+							/>
+						)}
 					</div>
 					<div className="flex-1">
 						<div className="flex items-end gap-3">
@@ -146,10 +169,7 @@ function LineStoneCard({ card }: StoneCardType) {
 						</CircularProgressbarWithChildren>
 					</div>
 				)}
-			</button>
-			<Dialog isOpen={showCoopDetail} setIsOpen={setShowCoopDetail}>
-				<CoopDetail card={card} />
-			</Dialog>
+			</div>
 		</Fragment>
 	);
 }

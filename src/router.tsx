@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Order from './pages/Orders';
 import Profile from './pages/Profile';
+import Slab from './pages/Slab';
 import TwoFactorAuth from './pages/TwoFactorAuth';
 import { AuthenticatedRouteType, GuestRouteType } from './types/Route.type';
 
@@ -64,6 +65,10 @@ export const authenticated: AuthenticatedRouteType = [
 			{
 				path: 'profile',
 				element: <Profile />,
+			},
+			{
+				path: 'coop/:id',
+				element: <Slab />,
 			},
 		],
 	},
