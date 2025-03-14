@@ -99,7 +99,7 @@ export default function AuthLayout() {
 
 							<div className="mx-auto flex w-max items-center gap-2 rounded-full bg-dark-gray px-4 py-2">
 								<img src={headphoneIcon} alt="contact us" />
-								<p className="">09220781269</p>
+								<p className="">091313131313</p>
 							</div>
 
 							<p className="mt-2 text-center text-lg">

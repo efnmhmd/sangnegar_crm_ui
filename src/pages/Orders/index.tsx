@@ -47,8 +47,8 @@ const ordersListData: Order[] = [
 		orderCode: 324567,
 		amount: 3,
 		status: 'ثبت شده',
-		owner: 'علیرضا داودی',
-		phone: '09220781269',
+		owner: 'علی حبیبی',
+		phone: '091313131313',
 	},
 	{
 		id: 2,
@@ -56,8 +56,8 @@ const ordersListData: Order[] = [
 		orderCode: 324567,
 		amount: 3,
 		status: 'ثبت شده',
-		owner: 'علیرضا داودی',
-		phone: '09220781269',
+		owner: 'علی حبیبی',
+		phone: '091313131313',
 	},
 	{
 		id: 3,
@@ -65,8 +65,8 @@ const ordersListData: Order[] = [
 		orderCode: 324567,
 		amount: 3,
 		status: 'ثبت شده',
-		owner: 'علیرضا داودی',
-		phone: '09220781269',
+		owner: 'علی حبیبی',
+		phone: '091313131313',
 	},
 	{
 		id: 4,
@@ -74,8 +74,8 @@ const ordersListData: Order[] = [
 		orderCode: 324567,
 		amount: 3,
 		status: 'ثبت شده',
-		owner: 'علیرضا داودی',
-		phone: '09220781269',
+		owner: 'علی حبیبی',
+		phone: '091313131313',
 	},
 	{
 		id: 5,
@@ -83,8 +83,8 @@ const ordersListData: Order[] = [
 		orderCode: 324567,
 		amount: 3,
 		status: 'ثبت شده',
-		owner: 'علیرضا داودی',
-		phone: '09220781269',
+		owner: 'علی حبیبی',
+		phone: '091313131313',
 	},
 ];
 
@@ -287,7 +287,7 @@ function Order() {
 								</div>
 								<div className="space-y-2">
 									<p className="text-xl font-medium">
-										علیرضا داودی
+										علی حبیبی
 									</p>
 									<div className="flex items-center gap-2">
 										<div className="size-[10px] rounded-full bg-dark-red" />
@@ -307,10 +307,10 @@ function Order() {
 								</div>
 								<div>
 									<p className="text-xs font-normal leading-[18.35px]">
-										علیرضا داودی
+										علی حبیبی
 									</p>
 									<p className="text-xs font-normal leading-[18.35px]">
-										09220781269 - 09220781269
+										091313131313 - 091313131313
 									</p>
 								</div>
 							</div>
@@ -318,7 +318,7 @@ function Order() {
 
 						<div className="space-y-2">
 							<div className="flex items-center justify-end gap-4">
-								<span>09220781269</span>
+								<span>091313131313</span>
 								<img
 									src={phoneIcon}
 									alt=""
@@ -326,11 +326,11 @@ function Order() {
 								/>
 							</div>
 							<div className="flex items-center justify-end gap-4">
-								<span>alirezadavuodi@outlook.com</span>
+								<span>alihabib1212@gmail.com</span>
 								<img src={mailIcon} alt="" className="size-5" />
 							</div>
 							<div className="flex items-center justify-end gap-4">
-								<span>1271234567</span>
+								<span>111111111111</span>
 								<img
 									src={idCardIcon}
 									alt=""
