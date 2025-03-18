@@ -190,7 +190,7 @@ function CoopDetail({ card }: StoneCardType) {
 					</div>
 				</Fragment>
 			) : isSlab ? (
-				<div className="mx-auto max-h-[25rem] flex-1 items-stretch overflow-scrool py-8">
+				<div className="mx-auto max-h-[25rem] flex-1 items-stretch overflow-hidden py-8">
 					<img
 						src={card.image}
 						className="h-full w-full object-cover"

@@ -10,6 +10,7 @@ type FilterBar = {
 	setGridList: Dispatch<SetStateAction<boolean>>;
 	gridList: boolean;
 	showFilterSection: boolean;
+	hideFilterButton?: boolean;
 };
 
 const FilterBar = ({
@@ -17,18 +18,21 @@ const FilterBar = ({
 	setGridList,
 	gridList,
 	showFilterSection,
+	hideFilterButton = false,
 }: FilterBar) => {
 	return (
 		<div className="flex items-center gap-4 px-2">
-			<Button
-				onClick={() => setShowFilterSection((pre) => !pre)}
-				size="md"
-				className={twMerge(
-					showFilterSection ? 'bg-primary' : 'bg-black/45',
-				)}
-			>
-				<FilterImage className="size-5" />
-			</Button>
+			{!hideFilterButton && (
+				<Button
+					onClick={() => setShowFilterSection((pre) => !pre)}
+					size="md"
+					className={twMerge(
+						showFilterSection ? 'bg-primary' : 'bg-black/45',
+					)}
+				>
+					<FilterImage className="size-5" />
+				</Button>
+			)}
 			<Button
 				size="md"
 				onClick={() => setGridList(true)}

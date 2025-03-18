@@ -3,18 +3,13 @@ import { twMerge } from 'tailwind-merge';
 import Button from '@components/Button';
 import SortImage from '@assets/images/sort.svg?react';
 
-type InfoBar = {
-	showFilterSection: boolean;
-};
-
-function InfoBar({ showFilterSection }: InfoBar) {
+function InfoBar() {
 	const [sortBy, setSortBy] = useState(0);
 
 	return (
 		<div
 			className={twMerge(
-				'flex items-center justify-between rounded-[1.062rem] bg-black/45 p-1',
-				showFilterSection ? 'col-span-2' : 'col-span-3',
+				'flex flex-1 items-center justify-between rounded-[1.062rem] bg-black/45 p-1 px-2',
 			)}
 		>
 			<div className="flex items-center gap-3">

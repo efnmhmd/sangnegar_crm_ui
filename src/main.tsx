@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import { PhotoProvider } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Flip, ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -31,7 +33,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		<Suspense fallback={<p>loading ...</p>}>
 			<QueryClientProvider client={queryClient}>
 				<SkeletonTheme baseColor="#202020" highlightColor="#444">
-					<RouterProvider router={router} />
+					<PhotoProvider>
+						<RouterProvider router={router} />
+					</PhotoProvider>
 				</SkeletonTheme>
 				<ToastContainer
 					hideProgressBar={true}

@@ -11,15 +11,19 @@ function CoopList({ gridList }) {
 			{coopQuery.isPending &&
 				gridList &&
 				Array.from({ length: 8 }).map((_, index) => (
-					<Skeleton key={index} className="h-[10rem] w-full" />
+					<div key={index} className="h-[10rem] w-[30%]">
+						<Skeleton className="h-full" />
+					</div>
 				))}
 
 			{coopQuery.isPending && !gridList && (
-				<Skeleton
-					count={3}
-					containerClassName="col-span-full"
-					className="col-span-3 h-[10rem]"
-				/>
+				<div>
+					<Skeleton
+						count={3}
+						containerClassName="flex-1 w-[10rem]"
+						className="h-[10rem] w-[10rem] flex-1"
+					/>
+				</div>
 			)}
 
 			{coopQuery.data?.data?.map((card) =>
