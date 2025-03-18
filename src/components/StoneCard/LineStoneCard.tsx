@@ -10,6 +10,7 @@ import { twMerge } from 'tailwind-merge';
 import Checkbox from '@components/Checkbox';
 import RadialSeparators from '@components/RedialSeperators';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import useSlabStore from '@store/useSlabStore';
 import { StoneCardType } from '@/types/StoneCard.type';
 import DiagramImage from '@assets/images/diagram.svg?react';
 import GraphImage from '@assets/images/graph.svg?react';
@@ -19,6 +20,8 @@ import stoneImage from '@assets/images/stone.png';
 
 function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 	const navigate = useNavigate();
+
+	const { selectSlab } = useSlabStore();
 
 	return (
 		<Fragment>
@@ -35,7 +38,7 @@ function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 			>
 				{selectable && (
 					<div className="absolute left-3 top-3">
-						<Checkbox />
+						<Checkbox onChange={selectSlab} slabId={card.id} />
 					</div>
 				)}
 				<div
