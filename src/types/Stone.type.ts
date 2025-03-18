@@ -14,6 +14,9 @@ export type StoneType = {
     stone_type: number;
     thickness: number;
     description?: string
+    width: number
+    height: number
+    type: string
 };
 
 

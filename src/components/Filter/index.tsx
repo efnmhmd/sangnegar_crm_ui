@@ -126,7 +126,7 @@ function Filter({
 
 						<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
 
-						<div className="space-y-2">
+						{/* <div className="space-y-2">
 							<h3>رنگ زمینه</h3>
 							<div className="flex flex-col flex-wrap items-center gap-2 md:flex-row">
 								{colorFilter.map((color, index) => (
@@ -145,13 +145,13 @@ function Filter({
 											)}
 										/>
 
-										<span className="block text-center text-sm font-semibold">
+										<span className="block text-sm font-semibold text-center">
 											{color.label}
 										</span>
 									</div>
 								))}
 							</div>
-						</div>
+						</div> */}
 
 						<div className="mx-auto mb-5 mt-10 h-0.5 w-1/2 rounded-full bg-gray-500" />
 
