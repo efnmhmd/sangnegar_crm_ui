@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import Button from '@components/Button';
 import SlabList from '@components/SlabList';
 import { useSlabsQUery } from '@hooks/query/useSlabsQuery';
+import useSlabStore from '@store/useSlabStore';
 import FilterBar from '../Home/FilterBar';
 import InfoBar from '../Home/InfoBar';
 
@@ -17,14 +18,20 @@ export default function Slab() {
 
 	const slabsQUery = useSlabsQUery(id);
 
+	const slabs = useSlabStore((state) => state.slabs);
+
+	const showSlabItems = () => {
+		console.log({ slabs });
+	};
+
 	const buttons = useMemo(
 		() => [
 			{
 				label: 'دانلود PDF',
-				action: '#',
+				action: () => showSlabItems(),
 			},
 		],
-		[],
+		[slabs],
 	);
 
 	return (
@@ -48,6 +55,7 @@ export default function Slab() {
 							withBorder
 							className="px-6 hover:bg-primary hover:text-white"
 							size="auto"
+							onClick={button.action}
 						>
 							{button.label}
 						</Button>

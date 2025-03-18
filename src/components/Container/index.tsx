@@ -8,12 +8,7 @@ type ContainerProps = {
 
 function Container({ children, className = '' }: ContainerProps) {
 	return (
-		<div
-			className={twMerge(
-				'lx:max-w-[1250px] container mx-auto px-4',
-				className,
-			)}
-		>
+		<div className={twMerge('container mx-auto px-4', className)}>
 			{children}
 		</div>
 	);

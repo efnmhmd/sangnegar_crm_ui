@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import Checkbox from '@components/Checkbox';
 import RadialSeparators from '@components/RedialSeperators';
+import useSlabStore from '@store/useSlabStore';
 import { StoneCardType } from '@/types/StoneCard.type';
 import DiagramImage from '@assets/images/diagram.svg?react';
 import GraphImage from '@assets/images/graph.svg?react';
@@ -23,6 +24,8 @@ function GridStoneCard({
 	selectable = false,
 }: StoneCardType) {
 	const navigate = useNavigate();
+
+	const { selectSlab } = useSlabStore();
 
 	return (
 		<Fragment>
@@ -39,7 +42,7 @@ function GridStoneCard({
 			>
 				{selectable && (
 					<div className="absolute left-3 top-3">
-						<Checkbox />
+						<Checkbox onChange={selectSlab} slabId={card.id} />
 					</div>
 				)}
 				<div
