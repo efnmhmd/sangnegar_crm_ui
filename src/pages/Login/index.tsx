@@ -28,10 +28,13 @@ function Login() {
 
 	return (
 		<FormProvider {...loginForm}>
-			<form className="w-full space-y-10" onSubmit={handleLoginSubmit}>
+			<form
+				className="h-full w-full space-y-10 overflow-auto px-4"
+				onSubmit={handleLoginSubmit}
+			>
 				<div>
 					<h2 className="text-4xl">خوش آمدید</h2>
-					<p className="mt-5 text-2xl">
+					<p className="mt-5 md:text-2xl">
 						لطفا اطلاعات کاربری خود را وارد کنید
 					</p>
 				</div>
