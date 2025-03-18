@@ -28,7 +28,7 @@ function InfoBar() {
 				>
 					جدیدترین
 				</Button>
-				<Button
+				{/* <Button
 					onClick={() => setSortBy(1)}
 					className={twMerge(
 						'px-2 text-sm font-normal hover:bg-white/20',
@@ -37,7 +37,7 @@ function InfoBar() {
 					size="auto"
 				>
 					ویژه
-				</Button>
+				</Button> */}
 			</div>
 			<div className="flex items-center gap-2 text-sm font-normal">
 				<div className="space-x-1 space-x-reverse">

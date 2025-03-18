@@ -105,7 +105,7 @@ function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1">
 									<GraphImage className="size-5 shrink-0" />
 									<span className="truncate text-lg">
-										{card.stone_type}
+										{isSlab ? card.type : card.amount}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
@@ -115,7 +115,7 @@ function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1">
 									<ScanImage className="size-5 shrink-0" />
 									<span className="truncate text-lg">
-										LM.4L:210
+										{card.id}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
@@ -125,7 +125,7 @@ function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
 									<DiagramImage className="size-5 shrink-0" />
 									<span className="truncate text-lg">
-										{card.color}
+										{isSlab ? card.height : card.coop_id}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[85%] -translate-x-1/2 rounded-md bg-white/50" />
 									<div className="absolute left-1 top-[calc(50%+5px)] size-2 h-[60%] w-[1px] -translate-y-1/2 rounded-md bg-white/50" />
@@ -135,7 +135,7 @@ function LineStoneCard({ card, isSlab, selectable = false }: StoneCardType) {
 								<div className="relative flex items-center justify-center gap-4 px-2 py-3 pb-1 text-center">
 									<ResizeImage className="size-5 shrink-0" />
 									<span className="truncate text-lg">
-										{card.thickness}
+										{isSlab ? card.width : card.thickness}
 									</span>
 									<div className="absolute left-1/2 top-0 size-2 h-[1px] w-[90%] -translate-x-1/2 rounded-md bg-white/50" />
 								</div>
