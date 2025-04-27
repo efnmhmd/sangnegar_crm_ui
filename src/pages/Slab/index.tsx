@@ -19,11 +19,27 @@ export default function Slab() {
 	const slabsQUery = useSlabsQUery(id);
 
 	const slabs = useSlabStore((state) => state.slabs);
-
 	const showSlabItems = () => {
 		console.log({ slabs });
-	};
+	
+		// Ensure `slabs` is an array of numbers
+		if (!Array.isArray(slabs)) {
+			console.error("Invalid slabs data. Expected an array.");
+			return;
+		}
+	
+		// Convert the `slabs` array into a comma-separated string
+		const slabIds = slabs.join(",") + ","; // Add a trailing comma if needed
+		const url = import.meta.env.VITE_BASE_URL;
 
+		// Construct the URL with query parameters
+		const baseUrl = url+'/app/pdf_create/'; // Update this to match your API endpoint
+		const queryParams = new URLSearchParams({ slabs: slabIds }).toString();
+		const fullUrl = `${baseUrl}?${queryParams}`;
+	
+		// Open the URL in a new tab
+		window.open(fullUrl, '_blank');
+	};
 	const buttons = useMemo(
 		() => [
 			{

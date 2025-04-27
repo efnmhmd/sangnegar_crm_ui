@@ -118,7 +118,7 @@ const ordersColumns = createColumnHelper<Order>();
 const paymentsColumns = createColumnHelper<Payment>();
 
 function Order() {
-	const [openOrderDetail, setOpenOrderDetail] = useState(false);
+	const [openOrderDetail, setOpenOrderDetail] = useState(0);
 
 	const CustomerColumnsDef = useMemo(
 		() => [
@@ -159,7 +159,7 @@ function Order() {
 					<div className="">
 						<Icon
 							onClick={() => {
-								setOpenOrderDetail(true);
+								setOpenOrderDetail(1);
 							}}
 							icon="gg:arrow-up-o"
 							className="-rotate-45 cursor-pointer"
@@ -257,7 +257,7 @@ function Order() {
 							<div className="size-[14px] rounded-full border border-cerulina bg-cerulina/35" />
 						</div>
 						<div
-							onClick={() => setOpenOrderDetail(false)}
+							onClick={() => setOpenOrderDetail(0)}
 							className="cursor-pointer"
 						>
 							<img src={backIcon} alt="" className="size-5" />
