@@ -46,7 +46,7 @@ function InfoBar() {
 					<span>{new Number(29).toLocaleString('fa-ir')}</span>
 				</div>
 				<div className="space-x-1 space-x-reverse">
-					<span>کوب‌ها</span>
+					<span> کوپ ها </span>
 					<span>:</span>
 					<span>{new Number(155).toLocaleString('fa-ir')}</span>
 				</div>
